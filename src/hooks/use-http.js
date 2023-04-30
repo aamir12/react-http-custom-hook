@@ -24,10 +24,13 @@ const useHttp = () => {
       const data = await response.json();
       applyData(data);
 
-    } catch (err) {
-      setError(err.message || 'Something went wrong!');
+    } catch (error) {
+      setError(error.message || 'Something went wrong!');
+      throw error;
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
+    
   },[])
 
   return {isLoading,error,sendRequest};
